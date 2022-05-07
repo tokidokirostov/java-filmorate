@@ -53,10 +53,10 @@ public class FilmController {
             throw new ValidationException("Продолжительность фильма отрицательная или равна нулю.");
 
         }
-        if (dd) {
+        /*if (dd) {
             log.info("Создание нового фильма. Невыполнено. Фильм с таким именем существует.");
             throw new ValidationException("Фильм с таким именем существует.");
-        }
+        }*/
         identifier++;
         film.setId(identifier);
         log.info("Создание нового фильма. Выполнено." + film.getDescription().length());
