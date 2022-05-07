@@ -57,6 +57,8 @@ public class FilmController {
             log.info("Создание нового фильма. Невыполнено. Фильм с таким именем существует.");
             throw new ValidationException("Фильм с таким именем существует.");
         }*/
+
+
         identifier++;
         film.setId(identifier);
         log.info("Создание нового фильма. Выполнено." + film.getDescription().length());

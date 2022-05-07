@@ -57,6 +57,8 @@ public class UserController {
             log.info("Создание нового пользователя. Невыполнено. Пользователь уже существует.");
             throw new ValidationException("Пользователь уже существует.");
         }*/
+
+
         if (user.getName().equals("")) {
             user.setName(user.getLogin());
             log.info("Пустое имя пользователя заменено на Login.");
