@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "\t\t\"name\": \"Cat\",\n" +
             "    \"description\": \"Мой любимый котик!!\",\n" +
             "\t\t\"releaseDate\": \"1946-08-20\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmNoName = "{\n" +
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "\t\t\"name\": \"\",\n" +
             "    \"description\": \"Мой любимый котик!!\",\n" +
             "\t\t\"releaseDate\": \"1946-08-20\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmLongDescription = "{\n" +
@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" +
             "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\",\n" +
             "\t\t\"releaseDate\": \"1946-08-20\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmLongDescription200 = "{\n" +
@@ -52,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" +
             "!!!!!!!!!!!!!\",\n" +
             "\t\t\"releaseDate\": \"1946-08-20\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmLongDescription201 = "{\n" +
@@ -62,7 +62,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" +
             "!!!!!!!!!!!!!!\",\n" +
             "\t\t\"releaseDate\": \"1946-08-20\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmDateNormal = "{\n" +
@@ -70,7 +70,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "\t\t\"name\": \"Cats\",\n" +
             "    \"description\": \"Мой любимый котикМой любимый котик!\",\n" +
             "\t\t\"releaseDate\": \"1895-12-29\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmDateNotNormal = "{\n" +
@@ -78,7 +78,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "\t\t\"name\": \"Cat\",\n" +
             "    \"description\": \"Мой любимый котик!!\",\n" +
             "\t\t\"releaseDate\": \"1895-12-27\",\n" +
-            "\t\t\"duration\": \"PT20M\"\n" +
+            "\t\t\"duration\": 20\n" +
             "} ";
 
     String filmDurationZero = "{\n" +
@@ -86,14 +86,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "\t\t\"name\": \"Cat\",\n" +
             "    \"description\": \"Мой любимый котик!!\",\n" +
             "\t\t\"releaseDate\": \"1995-12-27\",\n" +
-            "\t\t\"duration\": \"PT0M\"\n" +
+            "\t\t\"duration\": 0\n" +
             "} ";
     String filmDurationNotNormal = "{\n" +
             "    \"id\": 1,\n" +
             "\t\t\"name\": \"Cat\",\n" +
             "    \"description\": \"Мой любимый котик!!\",\n" +
             "\t\t\"releaseDate\": \"1995-12-27\",\n" +
-            "\t\t\"duration\": \"PT-10M\"\n" +
+            "\t\t\"duration\": -20\n" +
             "} ";
 
     @Autowired
@@ -118,7 +118,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void test2_createFilmWhithLongDescription() throws Exception {
         this.mockMvc.perform(post("/films").content(filmLongDescription).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -130,7 +130,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void test4_createFilmWhithDescription201() throws Exception {
         this.mockMvc.perform(post("/films").content(filmLongDescription201).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -142,25 +142,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void test6_createFilmWhithDateOverNorma() throws Exception {
         this.mockMvc.perform(post("/films").content(filmDateNotNormal).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test7_createFilmWhithDurationZero() throws Exception {
         this.mockMvc.perform(post("/films").content(filmDurationZero).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test8_createFilmWhithDurationNotNormal() throws Exception {
         this.mockMvc.perform(post("/films").content(filmDurationNotNormal).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test9_createFilmWhithNoName() throws Exception {
         this.mockMvc.perform(post("/films").content(filmNoName).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -172,7 +172,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void test11_updateFilmWhithLongDescription() throws Exception {
         this.mockMvc.perform(put("/films").content(filmLongDescription).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -184,7 +184,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void test13_updateFilmWhithDescription201() throws Exception {
         this.mockMvc.perform(put("/films").content(filmLongDescription201).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -196,25 +196,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void test15_updateFilmWhithDateOverNorma() throws Exception {
         this.mockMvc.perform(put("/films").content(filmDateNotNormal).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test16_updateFilmWhithDurationZero() throws Exception {
         this.mockMvc.perform(put("/films").content(filmDurationZero).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test17_updateFilmWhithDurationNotNormal() throws Exception {
         this.mockMvc.perform(put("/films").content(filmDurationNotNormal).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test18_updateFilmWhithNoName() throws Exception {
         this.mockMvc.perform(put("/films").content(filmNoName).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
 }

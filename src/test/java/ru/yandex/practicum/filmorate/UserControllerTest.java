@@ -105,25 +105,25 @@ public class UserControllerTest {
     @Test
     public void test2_createUserWhithoutEmil() throws Exception {
         this.mockMvc.perform(post("/users").content(userNoEmail).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test3_createUserWhithoutDog() throws Exception {
         this.mockMvc.perform(post("/users").content(userErrorEmail).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test4_createUserWhithoutLogin() throws Exception {
         this.mockMvc.perform(post("/users").content(userNoName).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test5_createUserWhithSpaceInLogin() throws Exception {
         this.mockMvc.perform(post("/users").content(userNoName1).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class UserControllerTest {
     @Test
     public void test7_createUserBirthdayInFuture() throws Exception {
         this.mockMvc.perform(post("/users").content(userBirthdayInFuture).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -156,25 +156,25 @@ public class UserControllerTest {
     @Test
     public void test10_updateUserWhithoutEmil() throws Exception {
         this.mockMvc.perform(put("/users").content(userNoEmail).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test11_updateUserWhithoutDog() throws Exception {
         this.mockMvc.perform(put("/users").content(userErrorEmail).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test12_updateUserWhithoutLogin() throws Exception {
         this.mockMvc.perform(put("/users").content(userNoName).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void test13_updateUserWhithSpaceInLogin() throws Exception {
         this.mockMvc.perform(put("/users").content(userNoName1).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -186,7 +186,7 @@ public class UserControllerTest {
     @Test
     public void test15_updateUserBirthdayInFuture() throws Exception {
         this.mockMvc.perform(put("/users").content(userBirthdayInFuture).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 }
 
