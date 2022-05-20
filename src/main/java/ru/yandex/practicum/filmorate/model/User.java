@@ -3,10 +3,7 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Getter
@@ -22,6 +19,7 @@ public class User {
     @NotBlank
     private String email;
     @NotBlank
+    @Pattern(regexp = "\\S*$", message = "Login должен быть без пробелов!")
     private String login;
     private String name;
     @Past
