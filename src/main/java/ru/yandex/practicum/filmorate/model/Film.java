@@ -10,17 +10,20 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
+//@RequiredArgsConstructor
 @ToString
 
 public class Film {
 
-    int id;
+    Long id;
     @NotBlank
     String name;
     @Size(min = 1, max = 200)
@@ -29,4 +32,16 @@ public class Film {
     LocalDate releaseDate;
     @Positive
     int duration;
+    Set<Long> likes = new TreeSet<>();
+
+    public Film(Long id, String name, String description, LocalDate releaseDate, int duration) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.duration = duration;
+    }
+    public int getLikesSize(){
+        return likes.size();
+    }
 }
