@@ -14,11 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController extends Controller<User> {
-    private final UserStorage userStorage;
+    //private final UserStorage userStorage;
     private final UserService userService;
 
     public UserController(UserStorage userStorage, UserService userService) {
-        this.userStorage = userStorage;
+        //this.userStorage = userStorage;
         this.userService = userService;
     }
 
@@ -26,35 +26,35 @@ public class UserController extends Controller<User> {
     @GetMapping
     public Collection<User> findAll() {
         log.info("Получен запрос GET");
-        return userStorage.getStorage().values();
+        return userService.getUserStorage().getStorage().values();
     }
 
     //Создание пользователя
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         log.info("Получен запрос POST");
-        return userStorage.create(user);
+        return userService.getUserStorage().create(user);
     }
 
     //Обновление пользователя
     @PutMapping
     public User update(@Valid @RequestBody User user) {
         log.info("Получен запрос PUT");
-        return userStorage.update(user);
+        return userService.getUserStorage().update(user);
     }
 
     //Удаление пользователя
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         log.info("Получен запрос DELETE /{}. удаление пользователя.", id);
-        userStorage.delete(id);
+        userService.getUserStorage().delete(id);
     }
 
     //Показать пользователя
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         log.info("Получен запрос GET /users/{}", id);
-        return userStorage.getUser(id);
+        return userService.getUserStorage().getUser(id);
     }
 
     //Добавление в друзья

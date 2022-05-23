@@ -20,6 +20,10 @@ public class UserService {
         this.userStorage = userStorage;
     }
 
+    public UserStorage getUserStorage() {
+        return userStorage;
+    }
+
     //Добавление в друзья
     public void addFriends(Long id, Long friendId) {
         if (userStorage.getStorage().containsKey(friendId)) {

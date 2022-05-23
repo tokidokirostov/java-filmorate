@@ -15,11 +15,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 public class FilmController extends Controller<Film> {
-    private final FilmStorage filmStorage;
+    //private final FilmStorage filmStorage;
     private final FilmService filmService;
 
     private FilmController(FilmStorage filmStorage, FilmService filmService) {
-        this.filmStorage = filmStorage;
+        //this.filmStorage = filmStorage;
         this.filmService = filmService;
     }
 
@@ -27,7 +27,7 @@ public class FilmController extends Controller<Film> {
     @GetMapping
     public Collection<Film> findAll() {
         log.info("Получен запрос GET все фильмы");
-        return filmStorage.getStorage().values();
+        return filmService.getFilmStorage().getStorage().values();
     }
 
     //Добавление фильма
@@ -35,28 +35,28 @@ public class FilmController extends Controller<Film> {
     @Override
     public Film create(@Valid @RequestBody Film film) {
         log.info("Получен запрос POST /films. Создание фильма.");
-        return filmStorage.create(film);
+        return filmService.getFilmStorage().create(film);
     }
 
     //Обновление фильма
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         log.info("Получен запрос PUT /film. Обновление фильма.");
-        return filmStorage.update(film);
+        return filmService.getFilmStorage().update(film);
     }
 
     //Удаление фильма
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         log.info("Получен запрос DELETE /{}. удаление фильма.", id);
-        filmStorage.delete(id);
+        filmService.getFilmStorage().delete(id);
     }
 
     //Получение фильма
     @GetMapping("/{id}")
     public Film getFilm(@PathVariable Long id) {
         log.info("Получен запрос GET /{} ", id);
-        return filmStorage.getFilm(id);
+        return filmService.getFilmStorage().getFilm(id);
     }
 
     //Лайк фильму

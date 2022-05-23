@@ -23,6 +23,10 @@ public class FilmService {
         this.userStorage = userStorage;
     }
 
+    public FilmStorage getFilmStorage() {
+        return filmStorage;
+    }
+
     //Поставить лайк фильму
     public void addLike(Long id, Long userId) {
         if (filmStorage.getStorage().containsKey(id) && userStorage.getStorage().containsKey(userId)) {
