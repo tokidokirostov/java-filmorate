@@ -15,11 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 public class FilmController extends Controller<Film> {
-    //private final FilmStorage filmStorage;
     private final FilmService filmService;
 
     private FilmController(FilmStorage filmStorage, FilmService filmService) {
-        //this.filmStorage = filmStorage;
         this.filmService = filmService;
     }
 
