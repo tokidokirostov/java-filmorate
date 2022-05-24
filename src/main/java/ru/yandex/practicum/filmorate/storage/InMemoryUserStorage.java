@@ -8,7 +8,9 @@ import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -18,20 +20,9 @@ public class InMemoryUserStorage implements UserStorage {
     private Map<Long, User> storage = new HashMap<>();
     private Long identifier = 0L;
 
-    public Map<Long, User> hello() {
-        User user1 = new User(1L, "m1@ya.ru", "katya", "Katya", LocalDate.of(1999, 10, 12));
-        User user2 = new User(2L, "m2@ya.ru", "katya2", "Katya2", LocalDate.of(1999, 10, 12));
-        User user3 = new User(3L, "m3@ya.ru", "katya3", "Katya3", LocalDate.of(1999, 10, 12));
-        storage.put(user1.getId(), user1);
-        storage.put(user2.getId(), user2);
-        storage.put(user3.getId(), user3);
-
-        return storage;
-    }
 
     //Показать всех пользователей
     public Map<Long, User> getStorage() {
-        log.info("получен список пользователей.");
         return storage;
     }
 
@@ -90,5 +81,11 @@ public class InMemoryUserStorage implements UserStorage {
             log.info("Пользователь не найден.");
             throw new NotFoundException("Пользователь не найден.");
         }
+    }
+
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>(storage.values());
+        log.info("Получен список пользователей.");
+        return users;
     }
 }

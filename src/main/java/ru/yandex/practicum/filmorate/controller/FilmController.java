@@ -25,7 +25,7 @@ public class FilmController extends Controller<Film> {
     @GetMapping
     public Collection<Film> findAll() {
         log.info("Получен запрос GET все фильмы");
-        return filmService.getFilmStorage().getStorage().values();
+        return filmService.getFilms();
     }
 
     //Добавление фильма
@@ -33,28 +33,28 @@ public class FilmController extends Controller<Film> {
     @Override
     public Film create(@Valid @RequestBody Film film) {
         log.info("Получен запрос POST /films. Создание фильма.");
-        return filmService.getFilmStorage().create(film);
+        return filmService.create(film);
     }
 
     //Обновление фильма
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         log.info("Получен запрос PUT /film. Обновление фильма.");
-        return filmService.getFilmStorage().update(film);
+        return filmService.update(film);
     }
 
     //Удаление фильма
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         log.info("Получен запрос DELETE /{}. удаление фильма.", id);
-        filmService.getFilmStorage().delete(id);
+        filmService.delete(id);
     }
 
     //Получение фильма
     @GetMapping("/{id}")
     public Film getFilm(@PathVariable Long id) {
         log.info("Получен запрос GET /{} ", id);
-        return filmService.getFilmStorage().getFilm(id);
+        return filmService.getFilm(id);
     }
 
     //Лайк фильму

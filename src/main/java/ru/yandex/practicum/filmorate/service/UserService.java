@@ -2,10 +2,14 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,8 +24,24 @@ public class UserService {
         this.userStorage = userStorage;
     }
 
-    public UserStorage getUserStorage() {
-        return userStorage;
+    public List<User> getUsers() {
+        return userStorage.getUsers();
+    }
+
+    public User create(User user) {
+        return userStorage.create(user);
+    }
+
+    public User update(User user) {
+        return userStorage.update(user);
+    }
+
+    public void delete(Long id) {
+        userStorage.delete(id);
+    }
+
+    public User getUser(Long id) {
+        return userStorage.getUser(id);
     }
 
     //Добавление в друзья

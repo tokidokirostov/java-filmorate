@@ -24,35 +24,35 @@ public class UserController extends Controller<User> {
     @GetMapping
     public Collection<User> findAll() {
         log.info("Получен запрос GET");
-        return userService.getUserStorage().getStorage().values();
+        return userService.getUsers();
     }
 
     //Создание пользователя
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         log.info("Получен запрос POST");
-        return userService.getUserStorage().create(user);
+        return userService.create(user);
     }
 
     //Обновление пользователя
     @PutMapping
     public User update(@Valid @RequestBody User user) {
         log.info("Получен запрос PUT");
-        return userService.getUserStorage().update(user);
+        return userService.update(user);
     }
 
     //Удаление пользователя
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         log.info("Получен запрос DELETE /{}. удаление пользователя.", id);
-        userService.getUserStorage().delete(id);
+        userService.delete(id);
     }
 
     //Показать пользователя
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         log.info("Получен запрос GET /users/{}", id);
-        return userService.getUserStorage().getUser(id);
+        return userService.getUser(id);
     }
 
     //Добавление в друзья

@@ -2,11 +2,14 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
+import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +26,29 @@ public class FilmService {
         this.userStorage = userStorage;
     }
 
-    public FilmStorage getFilmStorage() {
+    /*public FilmStorage getFilmStorage() {
         return filmStorage;
+    }*/
+
+    public List<Film> getFilms() {
+
+        return filmStorage.getFilms();
+    }
+
+    public Film create(Film film) {
+        return filmStorage.create(film);
+    }
+
+    public Film update(Film film) {
+        return filmStorage.update(film);
+    }
+
+    public void delete(Long id) {
+        filmStorage.delete(id);
+    }
+
+    public Film getFilm(Long id) {
+        return filmStorage.getFilm(id);
     }
 
     //Поставить лайк фильму

@@ -8,7 +8,9 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -16,18 +18,6 @@ import java.util.Map;
 public class InMemoryFilmStorage implements FilmStorage {
     private Map<Long, Film> storage = new HashMap<>();
     private Long identifier = 0L;
-
-    public Map<Long, Film> hello2() {
-        Film film1 = new Film(1L, "Cat", "Мой любимый котик!!", LocalDate.of(1991, 10, 1), 90);
-        Film film2 = new Film(2L, "Cat2", "Мой любимый котик!!2", LocalDate.of(1992, 10, 1), 90);
-        Film film3 = new Film(3L, "Cat3", "Мой любимый котик!!3", LocalDate.of(1993, 10, 1), 90);
-
-        storage.put(film1.getId(), film1);
-        storage.put(film2.getId(), film2);
-        storage.put(film3.getId(), film3);
-
-        return storage;
-    }
 
     public Map<Long, Film> getStorage() {
         return storage;
@@ -85,5 +75,11 @@ public class InMemoryFilmStorage implements FilmStorage {
             log.info("Такого фильма нет.");
             throw new NotFoundException("Такого фильма нет.");
         }
+    }
+
+    public List<Film> getFilms() {
+        List<Film> films = new ArrayList<>(storage.values());
+        log.info("Получен список фильмов.");
+        return films;
     }
 }
