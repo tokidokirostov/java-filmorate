@@ -15,9 +15,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-    @SpringBootTest
-    @AutoConfigureMockMvc
-    public class FilmControllerTest {
+@SpringBootTest
+@AutoConfigureMockMvc
+public class FilmControllerTest {
 
     String filmOk = "{\n" +
             "    \"id\": 1,\n" +
@@ -95,6 +95,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             "\t\t\"releaseDate\": \"1995-12-27\",\n" +
             "\t\t\"duration\": -20\n" +
             "} ";
+
+    String userOk = "{\n" +
+            "    \"id\": 1,\n" +
+            "\t\t\"email\": \"m@ya.ru\",\n" +
+            "    \"login\": \"Anna\",\n" +
+            "\t  \"name\": \"Маша\",\n" +
+            "\t\t\"birthday\": \"1999-08-20\"\n" +
+            "}";
+
+    String userOk1 = "{\n" +
+            "    \"id\": 1,\n" +
+            "\t\t\"email\": \"m1@ya.ru\",\n" +
+            "    \"login\": \"Anna1\",\n" +
+            "\t  \"name\": \"Маша\",\n" +
+            "\t\t\"birthday\": \"1999-08-20\"\n" +
+            "}";
 
     @Autowired
     ObjectMapper mapper;
@@ -177,6 +193,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     public void test12_updateFilmWhithDescription200() throws Exception {
+        this.mockMvc.perform(post("/films").content(filmLongDescription200).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
         this.mockMvc.perform(put("/films").content(filmLongDescription200).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
     }
@@ -215,6 +233,68 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     public void test18_updateFilmWhithNoName() throws Exception {
         this.mockMvc.perform(put("/films").content(filmNoName).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test19_deleteFilmWhithNoFilms() throws Exception {
+        this.mockMvc.perform(delete("/films/{id}", 1))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test20_deleteFilmWhithFilm() throws Exception {
+        this.mockMvc.perform(post("/films").content(filmOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(delete("/films/{id}", 1))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void test21_getFilmWhithoutFilm() throws Exception {
+        this.mockMvc.perform(get("/films/{id}", 1))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test22_getFilmWhithFilm() throws Exception {
+        this.mockMvc.perform(post("/films").content(filmOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(get("/films/{id}", 1))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void test23_likeFilmWhithoutFilm() throws Exception {
+        this.mockMvc.perform(put("/films/{id}/like/{userId}", 1,2))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test24_getFilmWhithFilm() throws Exception {
+        this.mockMvc.perform(post("/films").content(filmOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/films/{id}/like/{userId}", 1,1))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void test25_deleteLikeFilmWhithoutFilms() throws Exception {
+        this.mockMvc.perform(delete("/films/{id}/like/{userId}", 1,1))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test26_deleteLikeFilmWhithLike() throws Exception {
+        this.mockMvc.perform(post("/films").content(filmOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/films/{id}/like/{userId}", 1,1))
+                .andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(delete("/films/{id}/like/{userId}", 1,1))
+                .andExpect(status().is2xxSuccessful());
     }
 
 }

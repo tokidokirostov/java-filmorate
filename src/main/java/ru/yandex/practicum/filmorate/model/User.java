@@ -3,11 +3,10 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Getter
 @Setter
@@ -17,14 +16,28 @@ import java.time.LocalDate;
 @ToString
 @Validated
 public class User {
-    private int id;
+    private Long id;
     @Email
     @NotBlank
     private String email;
     @NotBlank
+    @Pattern(regexp = "\\S*$", message = "Login должен быть без пробелов!")
     private String login;
     private String name;
     @Past
     @NotNull
     private LocalDate birthday;
+    private Set<Long> friends = new TreeSet<>();
+
+    public User(Long id, String email, String login, String name, LocalDate birthday) {
+        this.id = id;
+        this.email = email;
+        this.login = login;
+        this.name = name;
+        this.birthday = birthday;
+    }
+
+    public void addFriends(Long fid) {
+        friends.add(fid);
+    }
 }
