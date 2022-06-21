@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface FilmStorage {
 
-    public Map<Integer, Optional<Film>> getStorage();
+    //public Map<Integer, Optional<Film>> getStorage();
     public Film create(Film film);
     public Film update(Film film);
     public Optional<Film> getFilm(Integer id);

@@ -19,10 +19,10 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     UserStorage userStorage;
 
-    @Override
+    /*@Override
     public Map<Integer, Optional<Film>> getStorage() {
         return storage;
-    }
+    }*/
 
     //Генерация ID номера
     public Integer generationId() {
@@ -32,14 +32,14 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     //Создание фильма
     public Film create(Film film) {
-        boolean dd = getStorage().values().stream()
+        boolean dd = storage.values().stream()
                 .anyMatch(film1 -> film1.get().getName().equals(film.getName()));
         if (dd) {
             log.info("Невыполнено. Фильм с таким именем существует.");
             throw new ValidationException("Фильм с таким именем существует.");
         }
         film.setId(generationId());
-        getStorage().put(film.getId(), Optional.of(film));
+        storage.put(film.getId(), Optional.of(film));
         log.info("Выполнено." + film.getDescription().length());
         return film;
 
@@ -76,7 +76,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public void addLike(Integer id, Integer userId) {
-        if (storage.containsKey(id) && userStorage.getStorage().containsKey(userId)) {
+        if (storage.containsKey(id) && storage.containsKey(userId)) {
             storage.get(id).get().getLikes().add(userId);
             log.info("Лайк фильму поставлен.");
         } else {

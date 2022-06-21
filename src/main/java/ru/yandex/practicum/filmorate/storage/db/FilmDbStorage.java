@@ -24,10 +24,10 @@ public class FilmDbStorage implements FilmStorage {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
+    /*@Override
     public Map<Integer, Optional<Film>> getStorage() {
         return null;
-    }
+    }*/
 
     //Создание фильма
     @Override
