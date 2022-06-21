@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface UserStorage {
-    public Map<Integer, Optional<User>> getStorage();
+    //public Map<Integer, Optional<User>> getStorage();
     public User create(User user);
     public User update(User user);
     public Optional<User> getUser(Integer id);

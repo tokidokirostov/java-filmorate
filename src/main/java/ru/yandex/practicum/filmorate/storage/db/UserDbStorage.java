@@ -28,10 +28,10 @@ public class UserDbStorage implements UserStorage {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
+    /*@Override
     public Map<Integer, Optional<User>> getStorage() {
         return null;
-    }
+    }*/
 
     //Создание пользователя
     @Override
