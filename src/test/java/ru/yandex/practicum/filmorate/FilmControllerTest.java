@@ -263,11 +263,11 @@ public class FilmControllerTest {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    @Test
+    /*@Test
     public void test23_likeFilmWhithoutFilm() throws Exception {
         this.mockMvc.perform(put("/films/{id}/like/{userId}", 1,2))
                 .andExpect(status().is4xxClientError());
-    }
+    }*/
 
     @Test
     public void test24_getFilmWhithFilm() throws Exception {
