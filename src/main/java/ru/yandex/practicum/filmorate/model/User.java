@@ -16,28 +16,29 @@ import java.util.TreeSet;
 @ToString
 @Validated
 public class User {
-    private Long id;
+    private Integer id;
     @Email
     @NotBlank
     private String email;
+    private String name;
     @NotBlank
     @Pattern(regexp = "\\S*$", message = "Login должен быть без пробелов!")
     private String login;
-    private String name;
+
     @Past
     @NotNull
     private LocalDate birthday;
-    private Set<Long> friends = new TreeSet<>();
+    private Set<Integer> friends = new TreeSet<>();
 
-    public User(Long id, String email, String login, String name, LocalDate birthday) {
+    public User(Integer id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
         this.email = email;
-        this.login = login;
         this.name = name;
+        this.login = login;
         this.birthday = birthday;
     }
 
-    public void addFriends(Long fid) {
+    public void addFriends(Integer fid) {
         friends.add(fid);
     }
 }

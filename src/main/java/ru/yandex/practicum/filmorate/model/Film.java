@@ -1,29 +1,23 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.yaml.snakeyaml.events.Event;
+import org.springframework.validation.annotation.Validated;
 import ru.yandex.practicum.filmorate.valid.FilmDateRelease;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
-//@AllArgsConstructor
-//@RequiredArgsConstructor
-@ToString
-
+@AllArgsConstructor
+@Validated
 public class Film {
 
-    Long id;
+    Integer id;
     @NotBlank
     String name;
     @Size(min = 1, max = 200)
@@ -31,17 +25,14 @@ public class Film {
     @FilmDateRelease
     LocalDate releaseDate;
     @Positive
-    int duration;
-    Set<Long> likes = new TreeSet<>();
+    Integer duration;
+    @NotNull
+    Mpa mpa;
 
-    public Film(Long id, String name, String description, LocalDate releaseDate, int duration) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
-    }
-    public int getLikesSize(){
+    List<Genre> genres;
+    List<Integer> likes;
+
+    /*public int getLikesSize(){
         return likes.size();
-    }
+    }*/
 }
