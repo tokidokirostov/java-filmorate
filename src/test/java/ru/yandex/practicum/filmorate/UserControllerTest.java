@@ -197,16 +197,9 @@ public class UserControllerTest {
     }
 
     @Test
-    public void test17_deleteUserWhithUser() throws Exception {
-        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-        this.mockMvc.perform(delete("/users/{id}",1))
-                .andExpect(status().is2xxSuccessful());
-    }
-    @Test
-    public void test18_getUserWhithoutUser() throws Exception {
+    public void test18_getUserWhithUser() throws Exception {
         this.mockMvc.perform(get("/users/{id}",1))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is2xxSuccessful());
     }
     @Test
     public void test19_getUserWhithUser() throws Exception {
@@ -216,9 +209,9 @@ public class UserControllerTest {
                 .andExpect(status().is2xxSuccessful());
     }
     @Test
-    public void test20_addFriendUserWhithoutUser() throws Exception {
+    public void test20_addFriendUserWhithUser() throws Exception {
         this.mockMvc.perform(put("/users/{id}/friends/{friendId}",1,2))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is2xxSuccessful());
     }
     @Test
     public void test21_addFriendUserWhithUser() throws Exception {
@@ -240,11 +233,7 @@ public class UserControllerTest {
         this.mockMvc.perform(get("/users/{id}/friends",1))
                 .andExpect(status().is2xxSuccessful());
     }
-    @Test
-    public void test23_getFriendUserWhithoutUser() throws Exception {
-        this.mockMvc.perform(get("/users/{id}/friends",1))
-                .andExpect(status().is4xxClientError());
-    }
+
 
 
 
