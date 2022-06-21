@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.db;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.util.*;
 
 @Slf4j
 @Component("filmDbStorage")
+@Primary
 public class FilmDbStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
 
