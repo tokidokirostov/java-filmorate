@@ -17,13 +17,6 @@ public class InMemoryFilmStorage implements FilmStorage {
     private Map<Integer, Optional<Film>> storage = new HashMap<>();
     private Integer identifier = 0;
 
-    UserStorage userStorage;
-
-    /*@Override
-    public Map<Integer, Optional<Film>> getStorage() {
-        return storage;
-    }*/
-
     //Генерация ID номера
     public Integer generationId() {
         identifier += 1;

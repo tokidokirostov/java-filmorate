@@ -12,14 +12,8 @@ import java.util.*;
 @Slf4j
 @Component("inMemoryUserStorage")
 public class InMemoryUserStorage implements UserStorage {
-    //@Getter
     private Map<Integer, Optional<User>> storage = new HashMap<>();
     private Integer identifier = 0;
-
-    //Показать всех пользователей
-    /*public Map<Integer, Optional<User>> getStorage() {
-        return storage;
-    }*/
 
     //Генерация ID номера
     public Integer generationId() {
