@@ -16,7 +16,7 @@ import java.util.TreeSet;
 @ToString
 @Validated
 public class User {
-    private Integer id;
+    private Long id;
     @Email
     @NotBlank
     private String email;
@@ -28,9 +28,9 @@ public class User {
     @Past
     @NotNull
     private LocalDate birthday;
-    private Set<Integer> friends = new TreeSet<>();
+    private Set<Long> friends = new TreeSet<>();
 
-    public User(Integer id, String email, String login, String name, LocalDate birthday) {
+    public User(Long id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -38,7 +38,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    public void addFriends(Integer fid) {
+    public void addFriends(Long fid) {
         friends.add(fid);
     }
 }

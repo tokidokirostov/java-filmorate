@@ -10,11 +10,11 @@ public interface UserStorage {
     //public Map<Integer, Optional<User>> getStorage();
     public User create(User user);
     public User update(User user);
-    public Optional<User> getUser(Integer id);
+    public Optional<User> getUser(Long id);
     public List<Optional<User>> getUsers();
 
-    public List<Optional<User>> findAllUserFriends(Integer userId);
-    public List<Optional<User>> commonFriends(Integer id, Integer otherId);
-    public void addFriends(Integer id, Integer friendId);
-    public void deleteFriend(Integer id, Integer fid);
+    public List<Optional<User>> findAllUserFriends(Long userId);
+    public List<Optional<User>> commonFriends(Long id, Long otherId);
+    public void addFriends(Long id, Long friendId);
+    public void deleteFriend(Long id, Long fid);
 }

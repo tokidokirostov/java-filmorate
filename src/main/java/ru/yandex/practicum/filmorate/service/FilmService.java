@@ -39,26 +39,26 @@ public class FilmService {
         return filmStorage.update(film);
     }
 
-    public Optional<Film> getFilm(Integer id) {
+    public Optional<Film> getFilm(Long id) {
 
         return filmStorage.getFilm(id);
     }
 
     //Поставить лайк фильму
-    public void addLike(Integer id, Integer userId) {
+    public void addLike(Long id, Long userId) {
         filmStorage.addLike(id, userId);
     }
 
     //Удаление лайка
-    public void deleteLike(Integer id, Integer userId) {
+    public void deleteLike(Long id, Long userId) {
         filmStorage.deleteLike(id, userId);
     }
 
     //Получить отсортированный список фильмов
-    public List<Optional<Film>> getPopularFilm(Integer count) {
+    public List<Optional<Film>> getPopularFilm(Long count) {
         log.info("Получен список отсотритованных фильмов.");
         if (count <= 0) {
-            count = 10;
+            count = 10L;
         }
         return filmStorage.getPopularFilm(count);
     }

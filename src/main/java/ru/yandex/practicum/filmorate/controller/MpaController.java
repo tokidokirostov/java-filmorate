@@ -28,7 +28,7 @@ public class MpaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Mpa> findById(@PathVariable Integer id) {
+    public Optional<Mpa> findById(@PathVariable Long id) {
         log.info("Получен запрос GET /genres/{}", id);
         return mpaService.findById(id);
     }

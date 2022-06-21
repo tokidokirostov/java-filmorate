@@ -50,26 +50,26 @@ public class UserService {
         return userStorage.update(user);
     }
 
-    public Optional<User> getUser(Integer id) {
+    public Optional<User> getUser(Long id) {
         return userStorage.getUser(id);
     }
 
     //Добавление в друзья
-    public void addFriends(Integer id, Integer friendId) {
+    public void addFriends(Long id, Long friendId) {
 userStorage.addFriends(id, friendId);
     }
 
-    public List<Optional<User>> findAllUserFriends(Integer userId){
+    public List<Optional<User>> findAllUserFriends(Long userId){
 
         return userStorage.findAllUserFriends(userId);
     }
 
     //Удалить пользователя из друзей
-    public void deleteFriend(Integer id, Integer fid){
+    public void deleteFriend(Long id, Long fid){
         userStorage.deleteFriend(id, fid);
     }
 
-    public List<Optional<User>> commonFriends(Integer id, Integer otherId) {
+    public List<Optional<User>> commonFriends(Long id, Long otherId) {
         return userStorage.commonFriends(id, otherId);
     }
 

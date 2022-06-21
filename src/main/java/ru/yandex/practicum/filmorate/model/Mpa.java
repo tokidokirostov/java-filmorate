@@ -8,6 +8,6 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @Validated
 public class Mpa {
-    private int id;
+    private Long id;
     private String name;
 }

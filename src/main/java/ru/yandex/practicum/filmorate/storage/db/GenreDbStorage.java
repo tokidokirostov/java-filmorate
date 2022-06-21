@@ -21,11 +21,11 @@ public class GenreDbStorage implements GenreStorage {
     }
 
     @Override
-    public Optional<Genre> findGenreById(Integer id) {
+    public Optional<Genre> findGenreById(Long id) {
         SqlRowSet genreRows = jdbcTemplate.queryForRowSet("select * from GANRES where GANRE_ID=?", id);
         if (genreRows.next()) {
             Genre genre = new Genre(
-                    genreRows.getInt("GANRE_ID"),
+                    genreRows.getLong("GANRE_ID"),
                     genreRows.getString("GANRE")
             );
             log.info("Найден жанр: {} {}", genre.getId(), genre.getName());
@@ -39,7 +39,7 @@ public class GenreDbStorage implements GenreStorage {
     @Override
     public List<Optional<Genre>> findAllGenres() {
         String sql = "select GANRE_ID from GANRES";
-        List<Optional<Genre>> ganres = jdbcTemplate.query(sql, (rs, rowNum) -> findGenreById(rs.getInt("GANRE_ID")));
+        List<Optional<Genre>> ganres = jdbcTemplate.query(sql, (rs, rowNum) -> findGenreById(rs.getLong("GANRE_ID")));
         return ganres;
     }
 }

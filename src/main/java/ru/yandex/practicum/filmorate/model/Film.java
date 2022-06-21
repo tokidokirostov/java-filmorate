@@ -17,7 +17,7 @@ import java.util.List;
 @Validated
 public class Film {
 
-    Integer id;
+    Long id;
     @NotBlank
     String name;
     @Size(min = 1, max = 200)
@@ -25,12 +25,12 @@ public class Film {
     @FilmDateRelease
     LocalDate releaseDate;
     @Positive
-    Integer duration;
+    Long duration;
     @NotNull
     Mpa mpa;
 
     List<Genre> genres;
-    List<Integer> likes;
+    List<Long> likes;
 
     /*public int getLikesSize(){
         return likes.size();

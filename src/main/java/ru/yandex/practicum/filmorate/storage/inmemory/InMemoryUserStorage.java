@@ -12,11 +12,11 @@ import java.util.*;
 @Slf4j
 @Component("inMemoryUserStorage")
 public class InMemoryUserStorage implements UserStorage {
-    private Map<Integer, Optional<User>> storage = new HashMap<>();
-    private Integer identifier = 0;
+    private Map<Long, Optional<User>> storage = new HashMap<>();
+    private Long identifier = 0L;
 
     //Генерация ID номера
-    public Integer generationId() {
+    public Long generationId() {
         identifier += 1;
         return identifier;
     }
@@ -42,7 +42,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     //показать пользователя
-    public Optional<User> getUser(Integer id) {
+    public Optional<User> getUser(Long id) {
         if (storage.containsKey(id)) {
             log.info("Пользователь получен.");
             return storage.get(id);
@@ -59,10 +59,10 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public List<Optional<User>> findAllUserFriends(Integer userId) {
+    public List<Optional<User>> findAllUserFriends(Long userId) {
         if (storage.containsKey(userId)) {
             List<Optional<User>> list = new ArrayList<>();
-            for (Integer l : storage.get(userId).get().getFriends()) {
+            for (Long l : storage.get(userId).get().getFriends()) {
                 list.add(storage.get(l));
             }
             log.info("Получен список друзей пользователя");
@@ -75,10 +75,10 @@ public class InMemoryUserStorage implements UserStorage {
 
     //Список друзей, общих с другим пользователем.
     @Override
-    public List<Optional<User>> commonFriends(Integer id, Integer otherId) {
-        Set<Integer> userId = new TreeSet<>();
-        Set<Integer> userOtherId = new TreeSet<>();
-        Set<Integer> common = new TreeSet<>();
+    public List<Optional<User>> commonFriends(Long id, Long otherId) {
+        Set<Long> userId = new TreeSet<>();
+        Set<Long> userOtherId = new TreeSet<>();
+        Set<Long> common = new TreeSet<>();
         List<Optional<User>> commonUser = new ArrayList<>();
         userId = storage.get(id).get().getFriends();
         userOtherId = storage.get(otherId).get().getFriends();
@@ -89,14 +89,14 @@ public class InMemoryUserStorage implements UserStorage {
             log.info("Друганы не найдены.");
             throw new NotFoundException("Друганы не найдены.");
         } else {
-            for (Integer l : userId) {
-                for (Integer l2 : userOtherId) {
+            for (Long l : userId) {
+                for (Long l2 : userOtherId) {
                     if (l == l2) {
                         common.add(l);
                     }
                 }
             }
-            for (Integer l : common) {
+            for (Long l : common) {
                 commonUser.add(storage.get(l));
             }
         }
@@ -105,7 +105,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void addFriends(Integer id, Integer friendId) {
+    public void addFriends(Long id, Long friendId) {
         if (storage.containsKey(friendId)) {
             storage.get(id).get().addFriends(friendId);
             storage.get(friendId).get().addFriends(id);
@@ -118,7 +118,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     //Удалить пользователя из друзей
-    public void deleteFriend(Integer id, Integer fid) {
+    public void deleteFriend(Long id, Long fid) {
         if (storage.containsKey(id)) {
             storage.get(id).get().getFriends().remove(fid);
             log.info("Пользователь удален из друзей.");

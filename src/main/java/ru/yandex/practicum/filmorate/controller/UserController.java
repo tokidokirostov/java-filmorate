@@ -45,35 +45,35 @@ public class UserController extends Controller<User> {
 
     //Показать пользователя+
     @GetMapping("/{id}")
-    public Optional<User> getUser(@PathVariable Integer id) {
+    public Optional<User> getUser(@PathVariable Long id) {
         log.info("Получен запрос GET /users/{}", id);
         return userService.getUser(id);
     }
 
     //Добавление в друзья+
     @PutMapping("/{id}/friends/{friendId}")
-    public void addFriends(@PathVariable Integer id, @PathVariable Integer friendId) {
+    public void addFriends(@PathVariable Long id, @PathVariable Long friendId) {
         log.info("Получен запрос PUT /users/{}/friends/{}", id, friendId);
         userService.addFriends(id, friendId);
     }
 
     //Показать друзей пользователя+
     @GetMapping("/{id}/friends")
-    public List<Optional<User>> getAllFriends(@PathVariable Integer id) {
+    public List<Optional<User>> getAllFriends(@PathVariable Long id) {
         log.info("Получен запрос GET /users/{}/friends", id);
         return userService.findAllUserFriends(id);
     }
 
     //Удаление друга+
     @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFiends(@PathVariable Integer id, @PathVariable Integer friendId) {
+    public void deleteFiends(@PathVariable Long id, @PathVariable Long friendId) {
         log.info("Получен запрос DELETE /users/{}/friends/{}", id, friendId);
         userService.deleteFriend(id, friendId);
     }
 
     //список друзей, общих с другим пользователем+
     @GetMapping("/{id}/friends/common/{otherId}")
-    public List<Optional<User>> getCommonUser(@PathVariable Integer id, @PathVariable Integer otherId) {
+    public List<Optional<User>> getCommonUser(@PathVariable Long id, @PathVariable Long otherId) {
         log.info("Получен запрос GET /users/{}/friends/common/{}", id, otherId);
         return userService.commonFriends(id, otherId);
     }

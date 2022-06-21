@@ -50,21 +50,21 @@ public class FilmController extends Controller<Film> {
 
     //Получение фильма
     @GetMapping("/{id}")
-    public Optional<Film> getFilm(@PathVariable Integer id) {
+    public Optional<Film> getFilm(@PathVariable Long id) {
         log.info("Получен запрос GET /{} ", id);
         return filmService.getFilm(id);
     }
 
     //Лайк фильму
     @PutMapping("/{id}/like/{userId}")
-    public void addLike(@PathVariable Integer id, @PathVariable Integer userId) {
+    public void addLike(@PathVariable Long id, @PathVariable Long userId) {
         log.info("Получен запрос PUT /{}/like/{}. Лайк фильму.", id, userId);
         filmService.addLike(id, userId);
     }
 
     //Удаление лайка
     @DeleteMapping("/{id}/like/{userId}")
-    public void deleteLike(@PathVariable Integer id, @PathVariable Integer userId) {
+    public void deleteLike(@PathVariable Long id, @PathVariable Long userId) {
         log.info("Получен запрос DELETE /{}/like/{}. Удаление лайка фильма.", id, userId);
         filmService.deleteLike(id, userId);
     }
@@ -72,7 +72,7 @@ public class FilmController extends Controller<Film> {
     //Возвращает список фильмов по количеству лайков
     @GetMapping("/popular")
     public List<Optional<Film>> getPopularFilm(
-            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+            @RequestParam(value = "count", required = false, defaultValue = "10") Long count) {
         log.info("Получен запрос GET /popular?count={} ", count);
         return filmService.getPopularFilm(count);
     }

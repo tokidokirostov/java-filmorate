@@ -25,7 +25,7 @@ GenreService genreService;
     }
 
     @GetMapping("/{id}")
-    public Optional<Genre> findById(@PathVariable Integer id) {
+    public Optional<Genre> findById(@PathVariable Long id) {
         log.info("Получен запрос GET /genres/{}", id);
         return genreService.findById(id);
     }

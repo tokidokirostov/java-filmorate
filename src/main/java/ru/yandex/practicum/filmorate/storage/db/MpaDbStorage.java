@@ -21,11 +21,11 @@ public class MpaDbStorage implements MpaStorage {
     }
 
     @Override
-    public Optional<Mpa> findMpaById(Integer id) {
+    public Optional<Mpa> findMpaById(Long id) {
         SqlRowSet genreRows = jdbcTemplate.queryForRowSet("select * from RATING where RATING_ID=?", id);
         if(genreRows.next()){
             Mpa mpa = new Mpa(
-                    genreRows.getInt("RATING_ID"),
+                    genreRows.getLong("RATING_ID"),
                     genreRows.getString("RATING")
             );
             log.info("Найден рейтинг: {} {}", mpa.getId(), mpa.getName());
@@ -39,7 +39,7 @@ public class MpaDbStorage implements MpaStorage {
     @Override
     public List<Optional<Mpa>> findAllMpa() {
         String sql = "select RATING_ID from RATING";
-        List<Optional<Mpa>> mpa = jdbcTemplate.query(sql, (rs, rowNum) -> findMpaById(rs.getInt("RATING_ID")));
+        List<Optional<Mpa>> mpa = jdbcTemplate.query(sql, (rs, rowNum) -> findMpaById(rs.getLong("RATING_ID")));
         return mpa;
     }
     }

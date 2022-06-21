@@ -21,10 +21,10 @@ public class MpaService {
         this.mpaStorage = mpaStorage;
     }
 
-    /*public Optional<Mpa> findById(Integer id) {
+    /*public Optional<Mpa> findById(Long id) {
             return mpaDao.findById(id);
         }*/
-    public Optional<Mpa> findById(Integer id) {
+    public Optional<Mpa> findById(Long id) {
         return mpaStorage.findMpaById(id);
     }
 

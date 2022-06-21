@@ -8,12 +8,12 @@ import java.util.Optional;
 
 public interface FilmStorage {
 
-    //public Map<Integer, Optional<Film>> getStorage();
+    //public Map<Long, Optional<Film>> getStorage();
     public Film create(Film film);
     public Film update(Film film);
-    public Optional<Film> getFilm(Integer id);
+    public Optional<Film> getFilm(Long id);
     public List<Optional<Film>> getFilms();
-    public void addLike(Integer id, Integer userId);
-    public List<Optional<Film>> getPopularFilm(Integer count);
-    public void deleteLike(Integer id, Integer userId);
+    public void addLike(Long id, Long userId);
+    public List<Optional<Film>> getPopularFilm(Long count);
+    public void deleteLike(Long id, Long userId);
 }
