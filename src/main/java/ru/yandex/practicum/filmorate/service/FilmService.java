@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
@@ -36,22 +37,42 @@ public class FilmService {
     }
 
     public Film update(Film film) {
-        return filmStorage.update(film);
+
+        if (filmStorage.fidFilmByStorage(film.getId())) {
+            return filmStorage.update(film);
+        }else {
+            log.info("Фильм с идентификатором {} не найден.", film.getId());
+            throw new NotFoundException("Такого фильма нет.");
+        }
     }
 
     public Optional<Film> getFilm(Long id) {
-
-        return filmStorage.getFilm(id);
+        if (filmStorage.fidFilmByStorage(id)) {
+            return filmStorage.getFilm(id);
+        }else {
+            log.info("Фильм с идентификатором {} не найден.", id);
+            throw new NotFoundException("Такого Фильма нет.");
+        }
     }
 
     //Поставить лайк фильму
     public void addLike(Long id, Long userId) {
-        filmStorage.addLike(id, userId);
+        if (filmStorage.fidFilmByStorage(id) && userStorage.findUserByStorage(userId)) {
+            filmStorage.addLike(id, userId);
+        } else {
+            log.info("Фильм с идентификатором {} не найден или пользователь с идентификаторм {} не найден", id, userId);
+            throw new NotFoundException("Такого Фильма или пользователя нет.");
+        }
     }
 
     //Удаление лайка
     public void deleteLike(Long id, Long userId) {
-        filmStorage.deleteLike(id, userId);
+        if (filmStorage.fidFilmByStorage(id) && userStorage.findUserByStorage(userId)) {
+            filmStorage.deleteLike(id, userId);
+        }else {
+            log.info("Пользователь с идентификатором {} или фильм с идентификатором {} не найден.", userId, id);
+            throw new NotFoundException("Такого пользователя нет.");
+        }
     }
 
     //Получить отсортированный список фильмов

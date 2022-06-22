@@ -101,4 +101,12 @@ public class InMemoryFilmStorage implements FilmStorage {
             throw new NotFoundException("Фильм или лайк не найден.");
         }
     }
+
+    @Override
+    public boolean fidFilmByStorage(Long id) {
+        if (storage.containsKey(id)) {
+            return true;
+        }
+        return false;
+    }
 }

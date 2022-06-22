@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.storage.inmemory;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
@@ -126,5 +125,13 @@ public class InMemoryUserStorage implements UserStorage {
             log.info("Друган не найден.");
             throw new NotFoundException("Друган не найден.");
         }
+    }
+
+    @Override
+    public boolean findUserByStorage(Long id) {
+        if (storage.containsKey(id)) {
+            return true;
+        }
+        return false;
     }
 }
