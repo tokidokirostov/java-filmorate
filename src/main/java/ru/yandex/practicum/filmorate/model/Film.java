@@ -1,21 +1,23 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
+import org.springframework.validation.annotation.Validated;
 import ru.yandex.practicum.filmorate.valid.FilmDateRelease;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Validated
 public class Film {
-    int id;
+
+    Long id;
     @NotBlank
     String name;
     @Size(min = 1, max = 200)
@@ -23,5 +25,14 @@ public class Film {
     @FilmDateRelease
     LocalDate releaseDate;
     @Positive
-    int duration;
+    Long duration;
+    @NotNull
+    Mpa mpa;
+
+    List<Genre> genres;
+    List<Long> likes;
+
+    /*public int getLikesSize(){
+        return likes.size();
+    }*/
 }
