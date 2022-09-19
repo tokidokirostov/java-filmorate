@@ -9,12 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import ru.yandex.practicum.filmorate.controller.UserController;
-import ru.yandex.practicum.filmorate.model.User;
-
-import static org.hamcrest.core.StringContains.containsString;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -30,6 +24,13 @@ public class UserControllerTest {
             "    \"id\": 1,\n" +
             "\t\t\"email\": \"m@ya.ru\",\n" +
             "    \"login\": \"Anna\",\n" +
+            "\t  \"name\": \"Маша\",\n" +
+            "\t\t\"birthday\": \"1999-08-20\"\n" +
+            "}";
+    String userOk1 = "{\n" +
+            "    \"id\": 1,\n" +
+            "\t\t\"email\": \"m1@ya.ru\",\n" +
+            "    \"login\": \"Anna1\",\n" +
             "\t  \"name\": \"Маша\",\n" +
             "\t\t\"birthday\": \"1999-08-20\"\n" +
             "}";
@@ -143,7 +144,7 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -188,6 +189,71 @@ public class UserControllerTest {
         this.mockMvc.perform(put("/users").content(userBirthdayInFuture).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }
+
+    @Test
+    public void test16_deleteUserWhithoutUser() throws Exception {
+        this.mockMvc.perform(delete("/users/{id}",1))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test17_deleteUserWhithUser() throws Exception {
+        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(delete("/users/{id}",1))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void test18_getUserWhithoutUser() throws Exception {
+        this.mockMvc.perform(get("/users/{id}",1))
+                .andExpect(status().is4xxClientError());
+    }
+    @Test
+    public void test19_getUserWhithUser() throws Exception {
+        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(get("/users/{id}",1))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void test20_addFriendUserWhithoutUser() throws Exception {
+        this.mockMvc.perform(put("/users/{id}/friends/{friendId}",1,2))
+                .andExpect(status().is4xxClientError());
+    }
+    @Test
+    public void test21_addFriendUserWhithUser() throws Exception {
+        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(post("/users").content(userOk1).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/users/{id}/friends/{friendId}",1,2))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void test22_getFriendUserWhithUser() throws Exception {
+        this.mockMvc.perform(post("/users").content(userOk).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(post("/users").content(userOk1).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/users/{id}/friends/{friendId}",1,2))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(get("/users/{id}/friends",1))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void test23_getFriendUserWhithoutUser() throws Exception {
+        this.mockMvc.perform(get("/users/{id}/friends",1))
+                .andExpect(status().is4xxClientError());
+    }
+
+
+
+
+
+
+
+
+
 }
 
 

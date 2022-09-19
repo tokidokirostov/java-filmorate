@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RestApiExceptionHandler {
     @ExceptionHandler(value = {ValidationException.class})
     public ResponseEntity<Object> handleException(Exception e) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(e.getMessage(), status);
     }
 }
