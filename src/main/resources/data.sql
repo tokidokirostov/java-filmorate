@@ -1,0 +1,30 @@
+delete from FILM_GANRES;
+alter table FILM_GANRES alter column FILM_GANRES_ID restart with 1;
+
+delete from LIKES;
+alter table LIKES alter column LIKES_AD restart with 1;
+
+delete from FRIENDS;
+alter table FRIENDS alter column FRIENDS_ID restart with 1;
+
+delete from FILM;
+alter table FILM alter column FILM_ID restart with 1;
+
+delete from USERS;
+alter table USERS alter column USER_ID restart with 1;
+
+
+
+MERGE INTO PUBLIC.GANRES (GANRE_ID, GANRE) VALUES (1, 'Комедия');
+MERGE INTO PUBLIC.GANRES (GANRE_ID, GANRE) VALUES (2, 'Драма');
+MERGE INTO PUBLIC.GANRES (GANRE_ID, GANRE) VALUES (3, 'Мультфильм');
+MERGE INTO PUBLIC.GANRES (GANRE_ID, GANRE) VALUES (4, 'Триллер');
+MERGE INTO PUBLIC.GANRES (GANRE_ID, GANRE) VALUES (5, 'Документальный');
+MERGE INTO PUBLIC.GANRES (GANRE_ID, GANRE) VALUES (6, 'Боевик');
+
+MERGE INTO PUBLIC.RATING (RATING_ID, RATING) VALUES (1, 'G');
+MERGE INTO PUBLIC.RATING (RATING_ID, RATING) VALUES (2, 'PG');
+MERGE INTO PUBLIC.RATING (RATING_ID, RATING) VALUES (3, 'PG-13');
+MERGE INTO PUBLIC.RATING (RATING_ID, RATING) VALUES (4, 'R');
+MERGE INTO PUBLIC.RATING (RATING_ID, RATING) VALUES (5, 'NC-17');
+

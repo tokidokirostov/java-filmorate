@@ -2,4 +2,6 @@
 Template repository for Filmorate project.
 
 
-![This is an image](/src/main/resources/SQL_tables3.PNG)
+
+![This is an image](/src/main/resources/SQL_tables.PNG)
+

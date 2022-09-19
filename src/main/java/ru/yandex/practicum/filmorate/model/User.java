@@ -20,10 +20,11 @@ public class User {
     @Email
     @NotBlank
     private String email;
+    private String name;
     @NotBlank
     @Pattern(regexp = "\\S*$", message = "Login должен быть без пробелов!")
     private String login;
-    private String name;
+
     @Past
     @NotNull
     private LocalDate birthday;
@@ -32,8 +33,8 @@ public class User {
     public User(Long id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
         this.email = email;
-        this.login = login;
         this.name = name;
+        this.login = login;
         this.birthday = birthday;
     }
 

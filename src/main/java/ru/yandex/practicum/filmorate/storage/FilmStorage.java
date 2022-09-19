@@ -1,18 +1,18 @@
 package ru.yandex.practicum.filmorate.storage;
 
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 public interface FilmStorage {
 
-    public Map<Long, Film> getStorage();
     public Film create(Film film);
     public Film update(Film film);
-    public void delete(Long id);
-    public Film getFilm(Long id);
-    public List<Film> getFilms();
+    public Optional<Film> getFilm(Long id);
+    public List<Optional<Film>> getFilms();
+    public void addLike(Long id, Long userId);
+    public List<Optional<Film>> getPopularFilm(Long count);
+    public void deleteLike(Long id, Long userId);
+    public boolean fidFilmByStorage(Long id);
 }
